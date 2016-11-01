@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace SnakeGame.Data.Enums
 {
-	public enum Direction
+	public enum Actions
 	{
 		Up,
 		Down,
 		Left,
-		Right
+		Right,
+		Exit,
+		Unknown
 	}
 }

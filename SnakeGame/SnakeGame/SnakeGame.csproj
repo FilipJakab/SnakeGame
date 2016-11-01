@@ -43,11 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\Enums\Direction.cs" />
+    <Compile Include="Data\Enums\Actions.cs" />
     <Compile Include="Data\Structs\Position.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Providers\Map.cs" />
+    <Compile Include="Data\Map.cs" />
+    <Compile Include="Providers\MapGenerator.cs" />
     <Compile Include="Providers\Player.cs" />
     <Compile Include="Providers\SnakeSegment.cs" />
   </ItemGroup>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SnakeGame.Data;
 using SnakeGame.Data.Enums;
 
 namespace SnakeGame.Providers
@@ -10,7 +11,7 @@ namespace SnakeGame.Providers
 	public class Player
 	{
 		public List<SnakeSegment> Body;
-		public Direction Direction;
+		public Actions Actions;
 
 		public int PlayerLenght => Body.Count;
 
@@ -23,64 +24,67 @@ namespace SnakeGame.Providers
 				new SnakeSegment()
 			};
 
-			Direction = Direction.Right;
+			Actions = Actions.Right;
 		}
 
-		public void Input()
+		public Actions WaitForNextMove()
 		{
 			var input = Console.ReadKey(false).Key;
+
+			Actions nextAction;
 
 			switch (input)
 			{
 				case ConsoleKey.W:
-					if (Direction != Direction.Down)
-						Direction = Direction.Up;
+					nextAction = Actions.Up;
 					break;
 
 				case ConsoleKey.A:
-					if (Direction != Direction.Right)
-						Direction = Direction.Left;
+					nextAction = Actions.Left;
 					break;
 
 				case ConsoleKey.S:
-					if (Direction != Direction.Up)
-						Direction = Direction.Down;
+					nextAction = Actions.Down;
 					break;
 
 				case ConsoleKey.D:
-					if (Direction != Direction.Left)
-						Direction = Direction.Right;
+					nextAction = Actions.Right;
 					break;
 
 				case ConsoleKey.Escape:
-					Program.GameOver = true;
+					nextAction = Actions.Exit;
+					break;
+
+				default:
+					nextAction = Actions.Unknown;
 					break;
 			}
+			return nextAction;
 		}
 
-		public bool CanMove()
+		public bool CanMove(Map map, Actions nextAction)
 		{
 			var head = Body.ElementAt(0);
 
-			switch (Direction)
+			switch (Actions)
 			{
-				case Direction.Up:
-					if (head.Position.Y + 1 == Program.Map.Height)
+				case Actions.Up:
+					if (head.Position.Y + 1 == map.Height)
 						return false;
 					break;
 
-				case Direction.Down:
+				case Actions.Down:
 					if (head.Position.Y - 1 == 0)
 						return false;
 					break;
 
-				case Direction.Left:
+				case Actions.Left:
 					if (head.Position.X - 1 == 0)
 						return false;
 					break;
 
-				case Direction.Right:
-					if (head.Position.X + 1 == Program.Map.Width)
+				case Actions.Right:
+					if (head.Position.X + 1 == map.Width)
 						return false;
 					break;
 			}
@@ -98,21 +102,21 @@ namespace SnakeGame.Providers
 			// TODO: remove last element
 
 			// move by direction
-			switch (Direction)
+			switch (Actions)
 			{
-				case Direction.Up:
+				case Actions.Up:
 					head.Position.Y--;
 					break;
 
-				case Direction.Down:
+				case Actions.Down:
 					head.Position.Y++;
 					break;
 
-				case Direction.Left:
+				case Actions.Left:
 					head.Position.X--;
 					break;
 
-				case Direction.Right:
+				case Actions.Right:
 					head.Position.X++;
 					break;
 			}
