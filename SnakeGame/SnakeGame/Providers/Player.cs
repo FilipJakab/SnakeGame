@@ -93,13 +93,11 @@ namespace SnakeGame.Providers
 		}
 
 		/// <summary>
-		/// All the stuff in one Method => if player can move, sets the new position, TODO removes last element
+		/// sets the new position
 		/// </summary>
 		public void Move()
 		{
 			var head = Body.ElementAt(0);
-
-			// TODO: remove last element
 
 			// move by direction
 			switch (Actions)
