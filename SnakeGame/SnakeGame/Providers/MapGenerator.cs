@@ -36,18 +36,25 @@ namespace SnakeGame.Providers
 		public void ClearMap()
 		{
 			// for the moment just call InitMap
-			InitMap();
+			//InitMap();
+			
+			for (int y = 1; y < map.Height - 1; y++)
+			{
+				for (int x = 1; x < map.Width - 1; x++)
+				{
+					Console.SetCursorPosition(x, y);
+					Console.Write(" ");
+				}
+			}
 		}
 
 		public void DrawSnake(List<SnakeSegment> playerBody)
 		{
 			foreach (var segment in playerBody)
 			{
+				if (segment == playerBody.Last()) break;
+				
 				Console.SetCursorPosition(segment.Position.X, segment.Position.Y);
-				if (segment == playerBody.Last()) {
-					Console.Write(" ");
-					return;
-				}
 				Console.Write("*");
 			}
 		}
