@@ -43,9 +43,11 @@ namespace SnakeGame.Providers
 		{
 			foreach (var segment in playerBody)
 			{
-				if (segment == playerBody.Last()) break;
-
 				Console.SetCursorPosition(segment.Position.X, segment.Position.Y);
+				if (segment == playerBody.Last()) {
+					Console.Write(" ");
+					return;
+				}
 				Console.Write("*");
 			}
 		}
