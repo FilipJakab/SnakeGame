@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SnakeGame.Data.Structs
+namespace SnakeGame.Data.Enums
 {
-	public struct Position
+	public enum Movement
 	{
-		public int X { get; set; }
-
-		public int Y { get; set; }
+		Space,
+		Wall,
+		Fruit
 	}
 }

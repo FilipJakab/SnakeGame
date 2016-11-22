@@ -8,57 +8,70 @@ using System.Threading.Tasks;
 using SnakeGame.Data;
 using SnakeGame.Data.Enums;
 using SnakeGame.Providers;
+using System.Threading;
 
 namespace SnakeGame
 {
 	public class Program
 	{
-		public static Player Player;
-		//public static Map Map;
-
-		public static bool GameOver = false;
-
 		public static void Main(string[] args)
 		{
-			Map map = new Map(40, 20);
-			Player = new Player();
+			var mapProvider = new MapProvider();
 
-			if (GameOver) goto EndProgram;
+			var map = new Map(50, 19);
+			var player = new Player();
 
-			MapGenerator generator = new MapGenerator(map);
-			// setting map
-			generator.InitMap();
+			// sets the basic stuffs
+			Setup(map, player);
 
-			//game loop
+			// Making new position of Fruit
+			mapProvider.GenerateNewFruit(map);
+
+			// draws lines round the console
+			mapProvider.GenerateMap(map);
+
 			do
 			{
-				// get input
-				var nextMove = Player.WaitForNextMove();
+				// Clearing last Element of body (tail)
+				mapProvider.ClearField(map, player);
 
-				if(nextMove == Actions.Exit)
-					goto EndProgram;
-				if (nextMove == Actions.Unknown)
-				{
-					Console.WriteLine("Invalid move, please, press ASDW or Escape");
-					continue;
-				}
+				// getting input from user
+				player.Direction = PlayerProvider.GetInput(player);
 
-				// validations
-				if (!Player.CanMove(map, nextMove))
-					goto EndProgram;
+				// Validating next position
+				var movement = PlayerProvider.NextMove(player, map);
+				if (movement != Movement.Wall)
+					// Setting new position
+					PlayerProvider.Move(player, movement);
+				else
+					player.Direction = Direction.Exit;
+				if (movement == Movement.Fruit)
+					mapProvider.GenerateNewFruit(map);
 
-				// updating map
-				generator.ClearMap();
-				generator.DrawSnake(Player.Body);
+				// updating map cuz of updating players position
+				mapProvider.RenderObjects(player, map);
 
-			} while (!GameOver);
+				mapProvider.DisplayScoreBoard(player);
 
-		EndProgram:
+				if (player.Direction == Direction.Left || player.Direction == Direction.Right)
+					Thread.Sleep(100);
+				else
+					Thread.Sleep(200);
+			} while (player.Direction != Direction.Exit);
+
 			Console.Clear();
+			Console.WriteLine("Game Over.");
+			Console.ReadKey(true);
+		}
 
-			Console.WriteLine(" > Game Over <");
+		public static void Setup(Map map, Player player)
+		{
+			Console.Title = "Snake Game";
+			Console.SetWindowSize(map.Width + 1, map.Height + 4);
 
-			Console.ReadKey(false);
+			// setting score board
+			Console.SetCursorPosition(0, Console.WindowHeight - 2);
+			Console.Write("Snake - head {   ;    }");
 		}
 	}
 }

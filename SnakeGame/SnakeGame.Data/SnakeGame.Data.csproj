@@ -4,17 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{34F5B9F0-D133-40F0-B9FD-A37BFF8ECBA6}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{2798C3B3-D137-468B-BA60-5EB9ADB8D33D}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SnakeGame</RootNamespace>
-    <AssemblyName>SnakeGame</AssemblyName>
+    <RootNamespace>SnakeGame.Data</RootNamespace>
+    <AssemblyName>SnakeGame.Data</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -43,22 +40,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="Enums\Direction.cs" />
+    <Compile Include="Enums\Movement.cs" />
+    <Compile Include="Map.cs" />
+    <Compile Include="Player.cs" />
+    <Compile Include="Element.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SnakeGame.Data\SnakeGame.Data.csproj">
-      <Project>{2798c3b3-d137-468b-ba60-5eb9adb8d33d}</Project>
-      <Name>SnakeGame.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SnakeGame.Providers\SnakeGame.Providers.csproj">
-      <Project>{167c9d94-d254-4ba6-82d6-161c292e626a}</Project>
-      <Name>SnakeGame.Providers</Name>
-    </ProjectReference>
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
