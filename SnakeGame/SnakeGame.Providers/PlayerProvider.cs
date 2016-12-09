@@ -21,6 +21,10 @@ namespace SnakeGame.Providers
 					}
 					if (head.Y - 1 == map.Fruit.Y && head.X == map.Fruit.X)
 						return Movement.Fruit;
+					if (player.Body.Any(element => head.X == element.X && head.Y - 1 == element.Y))
+					{
+						return Movement.Snake;
+					}
 					break;
 				case Direction.Down:
 					if (head.Y + 1 == map.Height)
@@ -30,6 +34,10 @@ namespace SnakeGame.Providers
 					}
 					if (head.Y + 1 == map.Fruit.Y && head.X == map.Fruit.X)
 						return Movement.Fruit;
+					if (player.Body.Any(element => head.X == element.X && head.Y + 1 == element.Y))
+					{
+						return Movement.Snake;
+					}
 					break;
 				case Direction.Left:
 					if (head.X - 1 == 0)
@@ -39,6 +47,10 @@ namespace SnakeGame.Providers
 					}
 					if (head.X - 1 == map.Fruit.X && head.Y == map.Fruit.Y)
 						return Movement.Fruit;
+					if (player.Body.Any(element => head.X - 1 == element.X && head.Y == element.Y))
+					{
+						return Movement.Snake;
+					}
 					break;
 				case Direction.Right:
 					if (head.X + 1 == map.Width)
@@ -48,6 +60,10 @@ namespace SnakeGame.Providers
 					}
 					if (head.X + 1 == map.Fruit.X && head.Y == map.Fruit.Y)
 						return Movement.Fruit;
+					if (player.Body.Any(element => head.X + 1 == element.X && head.Y == element.Y))
+					{
+						return Movement.Snake;
+					}
 					break;
 			}
 
@@ -102,13 +118,13 @@ namespace SnakeGame.Providers
 			switch (key)
 			{
 				case ConsoleKey.W:
-					return Direction.Up;
+					return player.Direction != Direction.Down ? Direction.Up : player.Direction;
 				case ConsoleKey.A:
-					return Direction.Left;
+					return player.Direction != Direction.Right ? Direction.Left : player.Direction;
 				case ConsoleKey.S:
-					return Direction.Down;
+					return player.Direction != Direction.Up ? Direction.Down : player.Direction;
 				case ConsoleKey.D:
-					return Direction.Right;
+					return player.Direction != Direction.Left ? Direction.Right : player.Direction;
 				case ConsoleKey.Escape:
 					return Direction.Exit;
 				case ConsoleKey.Spacebar:
@@ -119,5 +135,7 @@ namespace SnakeGame.Providers
 			}
 			return player.Direction;
 		}
+
+
 	}
 }

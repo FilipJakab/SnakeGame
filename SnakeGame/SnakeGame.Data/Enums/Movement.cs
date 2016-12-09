@@ -10,6 +10,7 @@ namespace SnakeGame.Data.Enums
 	{
 		Space,
 		Wall,
-		Fruit
+		Fruit,
+		Snake
 	}
 }

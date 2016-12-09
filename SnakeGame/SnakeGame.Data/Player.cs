@@ -11,13 +11,12 @@ namespace SnakeGame.Data
 
 		public Player()
 		{
-			Body = new List<Element>
+			Body = new List<Element>(40);
+
+			for (int i = 10; i > 2; i--)
 			{
-				new Element(5, 5),
-				new Element(5, 4),
-				new Element(5, 3),
-				new Element(5, 2)
-			};
+				Body.Add(new Element(5, i));
+			}
 
 			Score = 0;
 

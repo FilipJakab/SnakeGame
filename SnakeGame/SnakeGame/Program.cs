@@ -40,7 +40,7 @@ namespace SnakeGame
 
 				// Validating next position
 				var movement = PlayerProvider.NextMove(player, map);
-				if (movement != Movement.Wall)
+				if (movement != Movement.Wall && movement != Movement.Snake)
 					// Setting new position
 					PlayerProvider.Move(player, movement);
 				else
@@ -51,16 +51,18 @@ namespace SnakeGame
 				// updating map cuz of updating players position
 				mapProvider.RenderObjects(player, map);
 
+				// displaying score outside of map
 				mapProvider.DisplayScoreBoard(player);
 
-				if (player.Direction == Direction.Left || player.Direction == Direction.Right)
-					Thread.Sleep(100);
-				else
-					Thread.Sleep(200);
+				// Delay
+				Thread.Sleep(100);
 			} while (player.Direction != Direction.Exit);
 
 			Console.Clear();
+			
+			Console.SetCursorPosition(Console.WindowWidth/2 - 5, Console.WindowHeight/2);
 			Console.WriteLine("Game Over.");
+
 			Console.ReadKey(true);
 		}
 
