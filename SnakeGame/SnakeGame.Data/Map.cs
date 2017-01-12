@@ -13,8 +13,6 @@ namespace SnakeGame.Data
 
 		public Element Fruit { get; set; }
 
-		public char Wall { get; } = '#';
-
 		public Map(int width, int height)
 		{
 			Width = width;

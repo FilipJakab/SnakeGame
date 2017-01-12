@@ -18,14 +18,14 @@ namespace SnakeGame
 		{
 			var mapProvider = new MapProvider();
 
-			var map = new Map(50, 19);
+			var map = new Map(70, 30);
 			var player = new Player();
 
 			// sets the basic stuffs
 			Setup(map, player);
 
 			// Making new position of Fruit
-			mapProvider.GenerateNewFruit(map);
+			mapProvider.GenerateNewFruit(map, player);
 
 			// draws lines round the console
 			mapProvider.GenerateMap(map);
@@ -46,7 +46,7 @@ namespace SnakeGame
 				else
 					player.Direction = Direction.Exit;
 				if (movement == Movement.Fruit)
-					mapProvider.GenerateNewFruit(map);
+					mapProvider.GenerateNewFruit(map, player);
 
 				// updating map cuz of updating players position
 				mapProvider.RenderObjects(player, map);
@@ -55,13 +55,25 @@ namespace SnakeGame
 				mapProvider.DisplayScoreBoard(player);
 
 				// Delay
-				Thread.Sleep(100);
+				switch (player.Direction)
+				{
+					case Direction.Up:
+					case Direction.Down:
+						Thread.Sleep(80);
+						break;
+					case Direction.Left:
+					case Direction.Right:
+						Thread.Sleep(50);
+						break;
+				}
 			} while (player.Direction != Direction.Exit);
 
 			Console.Clear();
-			
-			Console.SetCursorPosition(Console.WindowWidth/2 - 5, Console.WindowHeight/2);
-			Console.WriteLine("Game Over.");
+
+			// setting cursor in the middle of the screen
+			Console.SetCursorPosition(Console.WindowWidth / 2 - 5, Console.WindowHeight / 2);
+			Console.Write("Game Over.");
+			Thread.Sleep(1000);
 
 			Console.ReadKey(true);
 		}
@@ -69,9 +81,13 @@ namespace SnakeGame
 		public static void Setup(Map map, Player player)
 		{
 			Console.Title = "Snake Game";
+
+			// Size is bigger due to a score board in the bottom of game field
 			Console.SetWindowSize(map.Width + 1, map.Height + 4);
 
-			// setting score board
+			Console.CursorVisible = false;
+
+			// setting score board temlate
 			Console.SetCursorPosition(0, Console.WindowHeight - 2);
 			Console.Write("Snake - head {   ;    }");
 		}

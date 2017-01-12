@@ -11,56 +11,53 @@ namespace SnakeGame.Providers
 		{
 			var head = player.Body.ElementAt(0);
 
+			// Validating next position
 			switch (player.Direction)
 			{
 				case Direction.Up:
-					if (head.Y - 1 == 0)
+					if (head.Y - 1 == 0) // Out of map collision
 					{
-						// colision
 						return Movement.Wall;
 					}
-					if (head.Y - 1 == map.Fruit.Y && head.X == map.Fruit.X)
+					if (head.Y - 1 == map.Fruit.Y && head.X == map.Fruit.X) // Fruit collision
 						return Movement.Fruit;
-					if (player.Body.Any(element => head.X == element.X && head.Y - 1 == element.Y))
+					if (player.Body.Any(element => head.X == element.X && head.Y - 1 == element.Y)) // self-touch
 					{
 						return Movement.Snake;
 					}
 					break;
 				case Direction.Down:
-					if (head.Y + 1 == map.Height)
+					if (head.Y + 1 == map.Height) // Out of map collision
 					{
-						// colision
 						return Movement.Wall;
 					}
-					if (head.Y + 1 == map.Fruit.Y && head.X == map.Fruit.X)
+					if (head.Y + 1 == map.Fruit.Y && head.X == map.Fruit.X) // Fruit collision
 						return Movement.Fruit;
-					if (player.Body.Any(element => head.X == element.X && head.Y + 1 == element.Y))
+					if (player.Body.Any(element => head.X == element.X && head.Y + 1 == element.Y)) // self-touch
 					{
 						return Movement.Snake;
 					}
 					break;
 				case Direction.Left:
-					if (head.X - 1 == 0)
+					if (head.X - 1 == 0) // Out of map collision
 					{
-						// colision
 						return Movement.Wall;
 					}
-					if (head.X - 1 == map.Fruit.X && head.Y == map.Fruit.Y)
+					if (head.X - 1 == map.Fruit.X && head.Y == map.Fruit.Y) // Fruit collision
 						return Movement.Fruit;
-					if (player.Body.Any(element => head.X - 1 == element.X && head.Y == element.Y))
+					if (player.Body.Any(element => head.X - 1 == element.X && head.Y == element.Y)) // self-touch
 					{
 						return Movement.Snake;
 					}
 					break;
 				case Direction.Right:
-					if (head.X + 1 == map.Width)
+					if (head.X + 1 == map.Width) // Out of map collision
 					{
-						// colision
 						return Movement.Wall;
 					}
-					if (head.X + 1 == map.Fruit.X && head.Y == map.Fruit.Y)
+					if (head.X + 1 == map.Fruit.X && head.Y == map.Fruit.Y) // Fruit collision
 						return Movement.Fruit;
-					if (player.Body.Any(element => head.X + 1 == element.X && head.Y == element.Y))
+					if (player.Body.Any(element => head.X + 1 == element.X && head.Y == element.Y)) // self-touch
 					{
 						return Movement.Snake;
 					}
@@ -98,6 +95,8 @@ namespace SnakeGame.Providers
 					}
 					break;
 			}
+
+			// Checking next position
 			if (nextMove == Movement.Space)
 			{
 				player.Body.Insert(0, head);
