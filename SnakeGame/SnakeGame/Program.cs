@@ -30,6 +30,11 @@ namespace SnakeGame
 			// draws lines round the console
 			mapProvider.GenerateMap(map);
 
+			// wait for input before game starts
+			// NOTE: One day, here will be placed a Menu
+			//	but not today
+			Console.ReadKey(true);
+
 			do
 			{
 				// Clearing last Element of body (tail)
@@ -73,7 +78,7 @@ namespace SnakeGame
 			// setting cursor in the middle of the screen
 			Console.SetCursorPosition(Console.WindowWidth / 2 - 5, Console.WindowHeight / 2);
 			Console.Write("Game Over.");
-			Thread.Sleep(1000);
+			Thread.Sleep(3000);
 
 			Console.ReadKey(true);
 		}

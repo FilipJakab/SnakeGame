@@ -13,11 +13,10 @@ namespace SnakeGame.Providers
 			{
 				for (var j = 0; j <= map.Width; j++)
 				{
-					Console.SetCursorPosition(j, i);
 					if (i == 0 || i == map.Height)
-						Console.Write(" ");
+						ConsoleProvider.WriteElement(new Element(j, i), ConsoleColor.Cyan);
 					else if (j == 0 || j == map.Width)
-						Console.Write(" ");
+						ConsoleProvider.WriteElement(new Element(j, i), ConsoleColor.Cyan);
 				}
 			}
 			Console.ResetColor();
@@ -29,7 +28,7 @@ namespace SnakeGame.Providers
 
 			Console.SetCursorPosition(0, Console.WindowHeight - 3);
 			Console.Write("Score: {0}", player.Score);
-			Console.SetCursorPosition(0, Console.WindowHeight - 2);
+			//Console.SetCursorPosition(0, Console.WindowHeight - 2);
 			Console.SetCursorPosition(15, Console.WindowHeight - 2);
 			Console.Write(player.Body[0].X);
 			Console.SetCursorPosition(19, Console.WindowHeight - 2);
@@ -57,27 +56,17 @@ namespace SnakeGame.Providers
 
 		public void ClearField(Map map, Player player)
 		{
-			Console.ResetColor();
-			Console.SetCursorPosition(player.Body.Last().X, player.Body.Last().Y);
-			Console.WriteLine(" ");
+			ConsoleProvider.WriteElement(player.Body.Last());
 		}
 
 		public void RenderObjects(Player player, Map map)
 		{
 			foreach (var element in player.Body)
 			{
-				Console.SetCursorPosition(element.X, element.Y);
-
-				Console.BackgroundColor = element == player.Body[0] ? ConsoleColor.Gray : ConsoleColor.DarkGray;
-
-				Console.Write(" ");
+				ConsoleProvider.WriteElement(element, element == player.Body[0] ? ConsoleColor.Gray : ConsoleColor.DarkGray);
 			}
 
-			Console.SetCursorPosition(map.Fruit.X, map.Fruit.Y);
-			Console.BackgroundColor = ConsoleColor.Red;
-			Console.WriteLine(" ");
-
-			Console.ResetColor();
+			ConsoleProvider.WriteElement(map.Fruit, ConsoleColor.Red);
 		}
 	}
 }
